@@ -135,9 +135,10 @@ solver.stop_iteration = np.inf
 check = solver.evaluator.add_file_handler(os.path.join(data_dir,'checkpoints'), wall_dt=3540, max_writes=1)
 check.add_tasks(solver.state)
 
-snap = solver.evaluator.add_file_handler(os.path.join(data_dir,'snapshots'), sim_dt=1e-3, max_writes=1)
+snap = solver.evaluator.add_file_handler(os.path.join(data_dir,'snapshots'), sim_dt=1e-3, max_writes=200)
 snap.add_task(psi, name='psi')
 snap.add_task(phi, name='phi')
+snap.add_task(d3.lap(psi), name='vorticity')
 
 timeseries = solver.evaluator.add_file_handler(os.path.join(data_dir,'timeseries'), sim_dt=1e-3, max_writes=None)
 timeseries.add_task(N, name='Nusselt')

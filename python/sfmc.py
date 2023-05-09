@@ -139,6 +139,13 @@ snap = solver.evaluator.add_file_handler(os.path.join(data_dir,'snapshots'), sim
 snap.add_task(psi, name='psi')
 snap.add_task(phi, name='phi')
 snap.add_task(d3.lap(psi), name='vorticity')
+snap.add_task(d3.lap(phi), name='temp(sin)/bz(cos)')
+snap.add_task(-lap2(phi), name='w(sin)')
+snap.add_task(d3.grad(d3.lap(phi)), name='u_perp(cos)')
+snap.add_task(-d3.skew(d3.grad(psi)), name='u_perp2')
+snap.add_task(d3.grad(phi), name='B_perp(sin)')
+snap.add_task(d3.lap(phi), name='Bz(cos)')
+
 
 timeseries = solver.evaluator.add_file_handler(os.path.join(data_dir,'timeseries'), sim_dt=1e-3, max_writes=None)
 timeseries.add_task(N, name='Nusselt')
